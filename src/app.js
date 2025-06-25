@@ -13,6 +13,13 @@ connectDB();
 
 const app = express();
 
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
+
 app.use(cors());
 app.use(express.json());
 
@@ -21,7 +28,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/admin", adminAuthRoutes);
-app.use("/api/admin/settings", settingsRoutes);
+app.use("/api/settings", settingsRoutes);
 app.use("/api/messages", messageRoutes);
 
 export default app;

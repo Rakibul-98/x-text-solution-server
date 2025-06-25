@@ -2,14 +2,20 @@ import Settings from "../models/Settings.js";
 
 export const getSettings = async (req, res) => {
   try {
-    let settings = await Settings.findOne();
+    let settings = await Settings.findOne().lean();
+
     if (!settings) {
-      settings = new Settings({
+      settings = {
         hero: { title: "", subtitle: "", backgroundImage: "" },
-        services: [],
-      });
-      await settings.save();
+        services: [
+          { title: "", description: "" },
+          { title: "", description: "" },
+          { title: "", description: "" },
+        ],
+      };
+      await Settings.create(settings);
     }
+
     res.json(settings);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -19,14 +25,16 @@ export const getSettings = async (req, res) => {
 export const updateSettings = async (req, res) => {
   try {
     let settings = await Settings.findOne();
+
     if (!settings) {
       settings = new Settings(req.body);
     } else {
       settings.hero = req.body.hero;
       settings.services = req.body.services;
     }
-    await settings.save();
-    res.json(settings);
+
+    const updatedSettings = await settings.save();
+    res.json(updatedSettings.toObject());
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
