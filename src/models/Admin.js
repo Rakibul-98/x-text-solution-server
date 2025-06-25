@@ -6,7 +6,6 @@ const adminSchema = new mongoose.Schema({
   password: { type: String, required: true },
 });
 
-// Hash password before saving
 adminSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
   const salt = await bcrypt.genSalt(10);
@@ -14,7 +13,6 @@ adminSchema.pre("save", async function (next) {
   next();
 });
 
-// Method to check password
 adminSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };

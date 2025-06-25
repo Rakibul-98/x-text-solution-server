@@ -15,7 +15,10 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: [
+      "http://localhost:3000",
+      "https://x-texh-solution-client.vercel.app",
+    ],
     credentials: true,
   })
 );
