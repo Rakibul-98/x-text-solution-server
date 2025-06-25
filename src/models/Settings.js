@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
 
 const serviceSchema = new mongoose.Schema({
-  title: { type: String },
-  description: { type: String },
+  title: { type: String, default: "" },
+  description: { type: String, default: "" },
+  bgImage: { type: String, default: "" },
 });
 
 const settingsSchema = new mongoose.Schema(

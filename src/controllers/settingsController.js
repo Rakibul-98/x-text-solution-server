@@ -8,9 +8,9 @@ export const getSettings = async (req, res) => {
       settings = {
         hero: { title: "", subtitle: "", backgroundImage: "" },
         services: [
-          { title: "", description: "" },
-          { title: "", description: "" },
-          { title: "", description: "" },
+          { title: "", description: "", bgImage: "" },
+          { title: "", description: "", bgImage: "" },
+          { title: "", description: "", bgImage: "" },
         ],
       };
       await Settings.create(settings);
